@@ -154,5 +154,6 @@ func createBasicLogConfig(filename string) logger.LogConfig {
 		Logfile:             filename,
 		LogTarget:           logger.LogTargetFile,
 		RotationMaxArchives: -1,
+		LogWithTimezone: 	 "UTC",
 	}
 }

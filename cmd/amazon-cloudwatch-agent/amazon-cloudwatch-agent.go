@@ -176,6 +176,7 @@ func reloadLoop(
 			}(ctx, envConfigPath)
 		}
 
+		log.Printf("I! RUN AGENT~~~~~~~~~~~~~~~~~~~~~~~")
 		err := runAgent(ctx, inputFilters, outputFilters)
 		if err != nil && err != context.Canceled {
 			log.Fatalf("E! [telegraf] Error running agent: %v", err)
@@ -304,10 +305,20 @@ func runAgent(ctx context.Context,
 		RotationInterval:    ag.Config.Agent.LogfileRotationInterval,
 		RotationMaxSize:     ag.Config.Agent.LogfileRotationMaxSize,
 		RotationMaxArchives: ag.Config.Agent.LogfileRotationMaxArchives,
+		LogWithTimezone:     "",
 	}
+	log.Printf("E! logConfig: %v", logConfig.Debug)
+	log.Printf("E! logConfig: %v", logConfig.Quiet)
+	log.Printf("E! logConfig: %v", logConfig.LogTarget)
+	log.Printf("E! logConfig: %v", logConfig.Logfile)
+	log.Printf("E! logConfig: %v", logConfig.RotationInterval)
+	log.Printf("E! logConfig: %v", logConfig.RotationMaxSize)
+	log.Printf("E! logConfig: %v", logConfig.RotationMaxArchives)
+	log.Printf("E! logConfig: %v", logConfig.LogWithTimezone)
 
 	logger.SetupLogging(logConfig)
 	log.Printf("I! Starting AmazonCloudWatchAgent %s", agentinfo.Version())
+	log.Printf("E! Tesing log Error level")
 	// Need to set SDK log level before plugins get loaded.
 	// Some aws.Config objects get created early and live forever which means
 	// we cannot change the sdk log level without restarting the Agent.
